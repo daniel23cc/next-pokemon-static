@@ -13,7 +13,7 @@ export default function HomePage({ pokemons }: Props) {
   //console.log(pokemons)
   return (
     <Layout title="Listado de Pokemons">
-      <Grid.Container gap={2} justify='center'>
+      <Grid.Container gap={2} justify='center' className="col animate__animated animate__bounceIn">
         {
           pokemons.map((pokemon: SmallPokemon) => (
             <PokemonCard key={pokemon.id} pokemon={pokemon} />

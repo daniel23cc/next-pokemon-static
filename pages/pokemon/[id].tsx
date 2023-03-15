@@ -125,19 +125,35 @@ export default PokemonPage
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
+    //console.log({ctx})
+
     const pokemons151 = [...Array(151)].map((value, index) => `${index + 1}`)
 
     return {
         paths: pokemons151.map(id => ({
             params: { id }
         })),
-        fallback: false
+        //fallback: false //al solicitar un id no especificado muestra 404
+        fallback: 'blocking'
     }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 
+    //console.log({params})
+
     const { id } = params as { id: string }
+
+    const pokemon = await getPokemonInfo(id)
+
+    if (!pokemon) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            }
+        }
+    }
     /* const { data } = await pokeApi.get<Pokemon>(`/pokemon/${id}`) */
     /*     const pokemon = {
             id: data.id,
@@ -147,8 +163,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     return {
         props: {
-            pokemon: await getPokemonInfo(id)
-        }
+            pokemon
+        },
+        revalidate: 86400
     }
 }
 
