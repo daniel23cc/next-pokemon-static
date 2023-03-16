@@ -68,7 +68,9 @@ const NamePage: NextPage<Props> = ({ pokemon }) => {
                 <Grid xs={12} sm={8}>
                     <Card>
                         <Card.Header css={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <Text h1 transform='capitalize'>{pokemon.name}</Text>
+                            {/*<Text className="text-3xl font-bold underline" transform='capitalize'>{pokemon.name}</Text>*/}
+                            <p className="text-xl font-bold underline capitalize">{pokemon.name}</p>
+
                             <Button
                                 color='gradient'
                                 ghost={!isInFavorites}
